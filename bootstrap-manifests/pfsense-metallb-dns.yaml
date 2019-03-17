@@ -1,0 +1,169 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubernetes-pfsense-controller
+  namespace: kube-system
+type: Opaque
+data:
+  # base64 encoded password
+  pfsense-url: aHR0cDovL3JvdXRlcg== 
+  pfsense-password: Zm9v 
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubernetes-pfsense-controller
+  namespace: kube-system
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: kubernetes-pfsense-controller
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - services
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - patch
+- apiGroups:
+  - extensions
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: kubernetes-pfsense-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubernetes-pfsense-controller
+subjects:
+- kind: ServiceAccount
+  name: kubernetes-pfsense-controller
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: kube-system
+  name: kubernetes-pfsense-controller-config
+data:
+  config: |
+    controller-id: "311cub-k8s"
+    enabled: true
+    plugins:
+      metallb:
+        enabled: true
+        nodeLabelSelector:
+        nodeFieldSelector:
+        bgp-implementation: openbgp
+        options:
+          openbgp:
+            # pass through to config.xml
+            template:
+              md5sigkey:
+              md5sigpass:
+              groupname: metallb
+              row:
+                - parameters: announce all
+                  parmvalue:
+      haproxy-declarative:
+        enabled: false
+      haproxy-ingress-proxy:
+        enabled: false
+        ingressLabelSelector:
+        ingressFieldSelector:
+        defaultFrontend: http-80
+        defaultBackend: traefik
+        # by default anything is allowed
+        #allowedHostRegex: "/.*/"
+      pfsense-dns-services:
+        enabled: true
+        serviceLabelSelector:
+        serviceFieldSelector:
+        #
+        #allowedHostRegex: "/.*/"
+        #
+        dnsBackends:
+          dnsmasq:
+            enabled: true
+          unbound:
+            enabled: false
+      pfsense-dns-ingresses:
+        enabled: false
+        ingressLabelSelector:
+        ingressFieldSelector:
+        #allowedHostRegex: "/.*/"
+        dnsBackends:
+          dnsmasq:
+            enabled: true
+          unbound:
+            enabled: false
+      pfsense-dns-haproxy-ingress-proxy:
+        enabled: false
+        #allowedHostRegex: "/.*/"
+        dnsBackends:
+          dnsmasq:
+            enabled: true
+          unbound:
+            enabled: false
+        frontends:
+          http-80:
+            hostname: http-80.k8s
+          primary_frontend_name2:
+            hostname: some-name.k8s
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: kubernetes-pfsense-controller
+  namespace: kube-system
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: kubernetes-pfsense-controller
+    spec:
+      serviceAccountName: kubernetes-pfsense-controller
+      containers:
+        - name: kubernetes-pfsense-controller
+          image: docker.io/travisghansen/kubernetes-pfsense-controller:v0.1.5
+          env:
+            - name: PFSENSE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: kubernetes-pfsense-controller
+                  key: pfsense-url
+            # change to true if you want to accept self-signed cert
+            - name: PFSENSE_INSECURE
+              value: "false"
+            - name: PFSENSE_USERNAME
+              value: "admin"
+            - name: PFSENSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kubernetes-pfsense-controller
+                  key: pfsense-password

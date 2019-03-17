@@ -1,0 +1,33 @@
+#!/bin/sh
+
+if [ -z $5 ]; then
+  echo "Usage: $0 <proxmox_host> <vmid> <vm_name> <cores> <memory> <custom_mac (optional)>"
+  echo"  ex: $0 proxmox01 100 controller00 4 4096 00:00:00:00:10:00"
+  exit 1
+fi
+
+NODE=$1
+VMID=$2
+NAME=$3
+CORES=$4
+MEM=$5
+if [ $6 ]; then
+  MAC=$6
+fi
+
+echo "Creating ID ${VMID}..."
+MSUF=`echo ${VMID} | cut -c 2-3` 
+
+echo "Creating Filesystem..."
+cmd="pvesh create /nodes/${NODE}/storage/local-lvm/content -filename vm-${VMID}-disk-0 -format raw -size 40G -vmid ${VMID}"
+echo $cmd
+ssh ${NODE} ${cmd} 2> /dev/null
+
+echo "Create VM..."
+cmd="pvesh create /nodes/${NODE}/qemu -name=${NAME} -vmid ${VMID} -memory ${MEM} -sockets 1 -cores ${CORES} -net0 e1000,bridge=vmbr0,macaddr=${MAC} -ide0=local-lvm:vm-${VMID}-disk-0 -boot ncd"
+echo $cmd
+ssh ${NODE} ${cmd} 2> /dev/null
+
+echo "Start VM [${VMID}] ${NAME}"
+ssh ${NODE} pvesh create /nodes/${NODE}/qemu/${VMID}/status/start
+echo "finished"

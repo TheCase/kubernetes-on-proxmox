@@ -1,0 +1,60 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+     app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        resources:
+          limits:
+            cpu: 1000m
+          requests:
+            cpu: 100m
+        ports:
+        - containerPort: 80
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx 
+  annotations:
+    dns.pfsense.org/hostname: nginx.svc
+  labels: 
+    component: nginx
+spec:
+  type: LoadBalancer
+  selector:
+    app: nginx
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+---
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  name: nginx-ingress
+#  #  annotations:
+#  #  kubernetes.io/ingress.class: traefik
+#spec:
+#  rules:
+#  - host: nginx.svc
+#    http:
+#      paths:
+#        #- path: /
+#      - backend:
+#          serviceName: nginx
+#          servicePort: 80
