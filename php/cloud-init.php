@@ -1,8 +1,8 @@
 <?php
 
-$k8s_version    = 'v1.11.0';
-$crictl_version = 'v1.11.0';
-$cni_version    = 'v0.7.1';
+$k8s_version    = 'v1.15.0';
+$crictl_version = 'v1.15.0';
+$cni_version    = 'v0.8.1';
 
 if (isset($_SERVER['HTTPS'])) {
   if ($_SERVER['HTTPS'] == "on") { $method = "https"; }
@@ -80,7 +80,7 @@ header('Content-Type: application/json');
         "filesystem": "root",
         "path": "/opt/downloads/crictl.tgz",
         "contents": {
-		"source": "https://github.com/kubernetes-incubator/cri-tools/releases/download/<?=$crictl_version?>/crictl-<?=$crictl_version?>-linux-amd64.tar.gz"
+		"source": "https://github.com/kubernetes-sigs/cri-tools/releases/download/<?=$crictl_version?>/crictl-<?=$crictl_version?>-linux-amd64.tar.gz"
         },
         "mode": 644
       },
