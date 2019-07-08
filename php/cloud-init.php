@@ -72,7 +72,7 @@ header('Content-Type: application/json');
         "filesystem": "root",
         "path": "/opt/downloads/cni.tgz",
         "contents": {
-		"source": "https://github.com/containernetworking/plugins/releases/download/<?=$cni_version?>/cni-plugins-amd64-<?=$cni_version?>.tgz"
+		"source": "https://github.com/containernetworking/plugins/releases/download/<?=$cni_version?>/cni-plugins-linux-amd64-<?=$cni_version?>.tgz"
         },
         "mode": 644
       },
