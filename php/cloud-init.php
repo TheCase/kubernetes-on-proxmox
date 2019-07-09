@@ -104,7 +104,7 @@ header('Content-Type: application/json');
         "filesystem": "root",
         "path": "/opt/bin/k8s_bootstrap.sh",
         "contents": {
-          "source": "https://raw.githubusercontent.com/TheCase/tec-kubernetes/master/scripts/k8s_bootstrap.sh"
+          "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/k8s_bootstrap.sh"
         },
         "mode": 755
       },
@@ -112,7 +112,23 @@ header('Content-Type: application/json');
         "filesystem": "root",
         "path": "/etc/docker/daemon.json",
         "contents": {
-        "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/config/docker-daemon.json"
+        "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/docker-daemon.json"
+        },
+        "mode": 644
+      },
+      {
+        "filesystem": "root",
+        "path": "/etc/cni/net.d/10-cni.conf",
+        "contents": {
+        "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/cni.conf"
+        },
+        "mode": 644
+      },
+      {
+        "filesystem": "root",
+        "path": "/etc/cni/net.d/99-loopback.conf",
+        "contents": {
+        "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/cni-loopback.conf"
         },
         "mode": 644
       }
