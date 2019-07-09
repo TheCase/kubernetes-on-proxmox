@@ -118,17 +118,9 @@ header('Content-Type: application/json');
       },
       {
         "filesystem": "root",
-        "path": "/etc/cni/net.d/10-cni.conf",
+        "path": "/etc/cni/net.d/10-flannel.conflist",
         "contents": {
-        "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/cni.conf"
-        },
-        "mode": 644
-      },
-      {
-        "filesystem": "root",
-        "path": "/etc/cni/net.d/99-loopback.conf",
-        "contents": {
-        "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/cni-loopback.conf"
+        "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/10-flannel.conflist"
         },
         "mode": 644
       }
