@@ -107,6 +107,14 @@ header('Content-Type: application/json');
           "source": "https://raw.githubusercontent.com/TheCase/tec-kubernetes/master/scripts/k8s_bootstrap.sh"
         },
         "mode": 755
+      },
+      {
+        "filesystem": "root",
+        "path": "/etc/docker/daemon.json",
+        "contents": {
+        "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/config/docker-daemon.json"
+        },
+        "mode": 644
       }
 <?
 /*
