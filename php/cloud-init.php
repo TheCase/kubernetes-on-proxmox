@@ -4,8 +4,8 @@ $k8s_version    = 'v1.15.0';
 $crictl_version = 'v1.15.0';
 $cni_version    = 'v0.8.1';
 
-if (isset($_SERVER['HTTPS'])) {
-  if ($_SERVER['HTTPS'] == "on") { $method = "https"; }
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") {
+  $method = "https"; }
 }else{ 
   $method = "http"; 
 }
