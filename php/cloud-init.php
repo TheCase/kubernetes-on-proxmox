@@ -5,7 +5,7 @@ $crictl_version = 'v1.15.0';
 $cni_version    = 'v0.8.1';
 
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") {
-  $method = "https"; }
+  $method = "https";
 }else{ 
   $method = "http"; 
 }
