@@ -108,7 +108,7 @@ data:
           dnsmasq:
             enabled: true
           unbound:
-            enabled: false
+            enabled: true
       pfsense-dns-ingresses:
         enabled: false
         ingressLabelSelector:
@@ -118,7 +118,7 @@ data:
           dnsmasq:
             enabled: true
           unbound:
-            enabled: false
+            enabled: true
       pfsense-dns-haproxy-ingress-proxy:
         enabled: false
         #allowedHostRegex: "/.*/"
@@ -126,7 +126,7 @@ data:
           dnsmasq:
             enabled: true
           unbound:
-            enabled: false
+            enabled: true
         frontends:
           http-80:
             hostname: http-80.k8s
