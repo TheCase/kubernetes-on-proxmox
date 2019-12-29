@@ -39,10 +39,9 @@ If you're on a Mac, use Homebrew to install `kubectl`
 scp <master_node>:/etc/kubernetes/admin.conf ~/.kube/config
 ```
 
-### Deploy the Flannel networking to the cluster (from workstation)
+### Deploy the Weave networking to the cluster (from workstation)
 ```
-kubectl apply -f bootstrap-manifests/kube-flannel.yml
-kubectl apply -f bootstrap-manifests/kube-flannel-rbac.yml
+kubectl apply -f bootstrap-manifests/kube-weave.yml
 ```
 
 ### Issue join command to each worker node
