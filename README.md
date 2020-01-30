@@ -41,7 +41,7 @@ scp <master_node>:/etc/kubernetes/admin.conf ~/.kube/config
 
 ### Deploy the Weave networking to the cluster (from workstation)
 ```
-kubectl apply -f bootstrap-manifests/kube-weave.yml
+kubectl apply -f bootstrap-manifests/kube-weave.yaml
 ```
 
 ### Issue join command to each worker node
