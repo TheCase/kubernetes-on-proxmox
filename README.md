@@ -164,7 +164,7 @@ if all goes well, you'll see the new nginx DNS entry in either the Unbound or DN
 
 ## On a Mac?  Check out the fantastic Kubernetic client!
 
-It will work directly with your local `~/.kube/config` file!  Download, install and you're off and adminstering your cluster!
+It will work directly with your local `~/.kube/config` file!  Download, install and you're off and adminstrating your cluster!
 
 Download: [https://docs.kubernetic.com](https://docs.kubernetic.com/)
 
