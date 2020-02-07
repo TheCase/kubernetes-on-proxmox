@@ -42,19 +42,3 @@ spec:
     port: 80
     protocol: TCP
     targetPort: 80
----
-#apiVersion: extensions/v1beta1
-#kind: Ingress
-#metadata:
-#  name: nginx-ingress
-#  #  annotations:
-#  #  kubernetes.io/ingress.class: traefik
-#spec:
-#  rules:
-#  - host: nginx.svc
-#    http:
-#      paths:
-#        #- path: /
-#      - backend:
-#          serviceName: nginx
-#          servicePort: 80

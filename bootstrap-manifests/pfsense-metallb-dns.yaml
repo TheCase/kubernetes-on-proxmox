@@ -69,7 +69,7 @@ metadata:
   name: kubernetes-pfsense-controller-config
 data:
   config: |
-    controller-id: "311cub-k8s"
+    controller-id: "k8s-pfsense"
     enabled: true
     plugins:
       metallb:
