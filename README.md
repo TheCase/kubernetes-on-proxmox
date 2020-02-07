@@ -162,7 +162,7 @@ I've included a sample `nginx` deployment in [manifests/nginx.yaml](manifests/ng
 if all goes well, you'll see the new nginx DNS entry in either the Unbound or DNSForwarder (or both, depending on what you use) in pfSense.
 
 
-## On a Mac?  Check out the fantastic Kubernetic client!
+# On a Mac?  Check out the fantastic Kubernetic client!
 
 It will work directly with your local `~/.kube/config` file!  Download, install and you're off and adminstering your cluster!
 
@@ -170,6 +170,6 @@ Download: [https://docs.kubernetic.com](https://docs.kubernetic.com/)
 
 
 
-## Questions?  Problems? 
+# Questions?  Problems? 
 
  I'd love to help out.  File an issue here in this repo.
