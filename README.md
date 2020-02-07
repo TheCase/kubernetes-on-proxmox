@@ -85,7 +85,7 @@ kubeadm join kube-controller-lb.311cub.net:6443 --token <token> --discovery-toke
 sh /opt/bin/flex-patch.sh
 ```
 
-###<a name="weave"></a> Deploy the Weave networking to a master
+### <a name="weave"></a>Deploy the Weave networking to a master
 You only need to do this once on a master node: 
 
 ```
@@ -139,7 +139,7 @@ kubectl apply -f bootstrap-manifests/metallb.yaml
 kubectl apply -f bootstrap-manifests/pfsense-metallb-dns.yaml
 ```
 
-** Once you've applied the manifest, you'll want to edit the secret for your pfSense password.  To generate the base64 encoded string for the secret, use the following command:
+\*\* Once you've applied the manifest, you'll want to edit the secret for your pfSense password.  To generate the base64 encoded string for the secret, use the following command:
 
 ```
 echo -n '<yoursecret>' | base64
@@ -172,4 +172,4 @@ Download: [https://docs.kubernetic.com](https://docs.kubernetic.com/)
 
 ### Questions?  Problems? 
 
- I'd love to help out.  File an issue here in this repo. 
+ I'd love to help out.  File an issue here in this repo.
