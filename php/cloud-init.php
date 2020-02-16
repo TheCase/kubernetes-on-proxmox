@@ -60,7 +60,7 @@ header('Content-Type: application/json');
         "contents": {
           "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/k8s_bootstrap.sh"
         },
-        "mode": 755
+        "mode": 493
       },
       {
         "filesystem": "root",
@@ -68,7 +68,7 @@ header('Content-Type: application/json');
         "contents": {
         "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/docker-daemon.json"
         },
-        "mode": 644
+        "mode": 420
       },
       {
         "filesystem": "root",
@@ -76,7 +76,7 @@ header('Content-Type: application/json');
         "contents": {
         "source": "https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/flex-patch.sh"
         },
-        "mode": 644
+        "mode": 420
       }
   ]
   },
