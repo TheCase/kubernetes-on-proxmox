@@ -6,4 +6,5 @@
 sed -i "s:\"$: --volume-plugin-dir=/var/lib/kubelet/volumeplugins\":g" /var/lib/kubelet/kubeadm-flags.env 
 # patch controller for flex plugin
 sed -i "s:/usr/libexec/kubernetes/kubelet-plugins:/var/lib/kubelet/volumeplugins:g" /etc/kubernetes/manifests/kube-controller-manager.yaml 
+mkdir -p /var/lib/kubelet/volumeplugins/volume/volume
 systemctl restart kubelet.service
