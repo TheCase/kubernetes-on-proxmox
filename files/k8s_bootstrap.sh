@@ -16,13 +16,13 @@ chmod +x {kubeadm,kubelet,kubectl}
 
 curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service
 
-
 mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/10-kubeadm.conf" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 
+mkdir -p /etc/kubernetes/manifests
+
 systemctl enable kubelet.service
 systemctl restart kubelet.service
-
 
 curl https://raw.githubusercontent.com/TheCase/kubernetes-coreos-on-proxmox/master/files/docker-daemon.json -o /etc/docker/daemon.json
 
